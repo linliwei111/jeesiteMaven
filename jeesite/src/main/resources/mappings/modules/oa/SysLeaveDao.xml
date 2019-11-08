@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.oa.dao.SysLeaveDao">
+    
+	<sql id="sysLeaveColumns">
+		a.id AS "id",
+		a.process_instance_id AS "processInstanceId",
+		a.start_time AS "startTime",
+		a.end_time AS "endTime",
+		a.leave_type AS "leaveType",
+		a.reason AS "reason",
+		a.apply_time AS "applyTime",
+		a.reality_start_time AS "realityStartTime",
+		a.reality_end_time AS "realityEndTime",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="sysLeaveJoins">
+	</sql>
+    
+	<select id="get" resultType="SysLeave">
+		SELECT 
+			<include refid="sysLeaveColumns"/>
+		FROM sys_leave a
+		<include refid="sysLeaveJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SysLeave">
+		SELECT 
+			<include refid="sysLeaveColumns"/>
+		FROM sys_leave a
+		<include refid="sysLeaveJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="processInstanceId != null and processInstanceId != ''">
+				AND a.process_instance_id = #{processInstanceId}
+			</if>
+			<if test="startTime != null and startTime != ''">
+				AND a.start_time = #{startTime}
+			</if>
+			<if test="endTime != null and endTime != ''">
+				AND a.end_time = #{endTime}
+			</if>
+			<if test="leaveType != null and leaveType != ''">
+				AND a.leave_type = #{leaveType}
+			</if>
+			<if test="reason != null and reason != ''">
+				AND a.reason = #{reason}
+			</if>
+			<if test="applyTime != null and applyTime != ''">
+				AND a.apply_time = #{applyTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysLeave">
+		SELECT 
+			<include refid="sysLeaveColumns"/>
+		FROM sys_leave a
+		<include refid="sysLeaveJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sys_leave(
+			id,
+			process_instance_id,
+			start_time,
+			end_time,
+			leave_type,
+			reason,
+			apply_time,
+			reality_start_time,
+			reality_end_time,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{processInstanceId},
+			#{startTime},
+			#{endTime},
+			#{leaveType},
+			#{reason},
+			#{applyTime},
+			#{realityStartTime},
+			#{realityEndTime},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_leave SET 	
+			process_instance_id = #{processInstanceId},
+			start_time = #{startTime},
+			end_time = #{endTime},
+			leave_type = #{leaveType},
+			reason = #{reason},
+			apply_time = #{applyTime},
+			reality_start_time = #{realityStartTime},
+			reality_end_time = #{realityEndTime},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sys_leave SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
