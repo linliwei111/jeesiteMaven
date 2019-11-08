@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.SysStudentDao">
+    
+	<sql id="sysStudentColumns">
+		a.student_id AS "studentId",
+		a.student_name AS "studentName",
+		a.student_age AS "studentAge",
+		a.student_genger AS "studentGenger",
+		a.student_phone AS "studentPhone",
+		a.student_address AS "studentAddress",
+		a.student_num1 AS "studentNum1",
+		a.student_num2 AS "studentNum2",
+		a.student_num3 AS "studentNum3",
+		a.student_num4 AS "studentNum4",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="sysStudentJoins">
+	</sql>
+    
+	<select id="get" resultType="SysStudent">
+		SELECT 
+			<include refid="sysStudentColumns"/>
+		FROM sys_student a
+		<include refid="sysStudentJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SysStudent">
+		SELECT 
+			<include refid="sysStudentColumns"/>
+		FROM sys_student a
+		<include refid="sysStudentJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysStudent">
+		SELECT 
+			<include refid="sysStudentColumns"/>
+		FROM sys_student a
+		<include refid="sysStudentJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sys_student(
+			student_id,
+			student_name,
+			student_age,
+			student_genger,
+			student_phone,
+			student_address,
+			student_num1,
+			student_num2,
+			student_num3,
+			student_num4,
+			create_by,
+			create_date,
+			update_by,
+			remarks,
+			del_flag
+		) VALUES (
+			#{studentId},
+			#{studentName},
+			#{studentAge},
+			#{studentGenger},
+			#{studentPhone},
+			#{studentAddress},
+			#{studentNum1},
+			#{studentNum2},
+			#{studentNum3},
+			#{studentNum4},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_student SET 	
+			student_id = #{studentId},
+			student_name = #{studentName},
+			student_age = #{studentAge},
+			student_genger = #{studentGenger},
+			student_phone = #{studentPhone},
+			student_address = #{studentAddress},
+			student_num1 = #{studentNum1},
+			student_num2 = #{studentNum2},
+			student_num3 = #{studentNum3},
+			student_num4 = #{studentNum4},
+			update_by = #{updateBy.id},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sys_student SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
