@@ -23,8 +23,8 @@ import com.thinkgem.jeesite.modules.student.entity.SysStudent;
 import com.thinkgem.jeesite.modules.student.service.SysStudentService;
 
 /**
- * 这个是学生信息表Controller
- * @author 林礼炜
+ * 单表生成Controller
+ * @author 阿伟
  * @version 2019-11-07
  */
 @Controller
@@ -68,7 +68,7 @@ public class SysStudentController extends BaseController {
 			return form(sysStudent, model);
 		}
 		sysStudentService.save(sysStudent);
-		addMessage(redirectAttributes, "保存这个是学生信息表成功");
+		addMessage(redirectAttributes, "保存单表成功");
 		return "redirect:"+Global.getAdminPath()+"/student/sysStudent/?repage";
 	}
 	
@@ -76,7 +76,7 @@ public class SysStudentController extends BaseController {
 	@RequestMapping(value = "delete")
 	public String delete(SysStudent sysStudent, RedirectAttributes redirectAttributes) {
 		sysStudentService.delete(sysStudent);
-		addMessage(redirectAttributes, "删除这个是学生信息表成功");
+		addMessage(redirectAttributes, "删除单表成功");
 		return "redirect:"+Global.getAdminPath()+"/student/sysStudent/?repage";
 	}
 

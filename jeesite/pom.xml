@@ -57,63 +57,28 @@
 		
 	</properties>
 	
-<!--	&lt;!&ndash; 设定主仓库，按设定顺序进行查找。 &ndash;&gt;-->
-<!--	<repositories>-->
-<!--	-->
-<!--		<repository>-->
-<!--			<id>jeesite-repos</id>-->
-<!--			<name>Jeesite Repository</name>-->
-<!--			<url>http://maven.aliyun.com/nexus/content/groups/public</url>-->
-<!--		</repository>-->
-<!--		-->
-<!--	</repositories>-->
-<!--	-->
-<!--	&lt;!&ndash; 设定插件仓库 &ndash;&gt;-->
-<!--	<pluginRepositories> -->
-<!--	-->
-<!--		<pluginRepository>-->
-<!--			<id>jeesite-repos</id>-->
-<!--			<name>Jeesite Repository</name>-->
-<!--			<url>http://maven.aliyun.com/nexus/content/groups/public</url>-->
-<!--		</pluginRepository>-->
-<!--		-->
-<!--	</pluginRepositories>-->
-
 	<!-- 设定主仓库，按设定顺序进行查找。 -->
 	<repositories>
-
-		<!-- 如有Nexus私服, 取消注释并指向正确的服务器地址. -->
-		<repository>
-			<id>nexus-repos</id>
-			<name>Team Nexus Repository</name>
-
-			<url>http://10.0.0.217:8081/repository/maven-central/</url>
-		</repository>
-
+	
 		<repository>
 			<id>jeesite-repos</id>
 			<name>Jeesite Repository</name>
 			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
 		</repository>
-
+		
 	</repositories>
-
+	
 	<!-- 设定插件仓库 -->
-	<pluginRepositories>
-
-		<pluginRepository>
-			<id>nexus-repos</id>
-			<name>Team Nexus Repository</name>
-
-			<url>http://10.0.0.217:8081/repository/maven-central/</url>
-		</pluginRepository>
+	<pluginRepositories> 
+	
 		<pluginRepository>
 			<id>jeesite-repos</id>
 			<name>Jeesite Repository</name>
 			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
 		</pluginRepository>
-
-	</pluginRepositories>
+		
+	</pluginRepositories> 
+	
 	<!-- 依赖项定义 -->
 	<dependencies>
 	

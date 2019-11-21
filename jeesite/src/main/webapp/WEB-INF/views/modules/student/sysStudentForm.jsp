@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html>
 <head>
-	<title>这个是学生信息表管理</title>
+	<title>单表管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -27,80 +27,102 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/student/sysStudent/">学生信息表</a></li>
-		<li class="active"><a href="${ctx}/student/sysStudent/form?id=${sysStudent.id}">学生信息表<shiro:hasPermission name="student:sysStudent:edit">${not empty sysStudent.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="student:sysStudent:edit">查看</shiro:lacksPermission></a></li>
+		<li><a href="${ctx}/student/sysStudent/">单表列表</a></li>
+		<li class="active"><a href="${ctx}/student/sysStudent/form?id=${sysStudent.id}">单表<shiro:hasPermission name="student:sysStudent:edit">${not empty sysStudent.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="student:sysStudent:edit">查看</shiro:lacksPermission></a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="sysStudent" action="${ctx}/student/sysStudent/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
 		<div class="control-group">
-			<label class="control-label">学号：</label>
+			<label class="control-label">学生id：</label>
 			<div class="controls">
-				<form:input path="studentId" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+				<form:input path="studentId" htmlEscape="false" maxlength="64" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">姓名：</label>
+			<label class="control-label">学生登录名：</label>
 			<div class="controls">
-				<form:input path="studentName" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+				<form:input path="studentloginName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">年龄：</label>
+			<label class="control-label">学生密码：</label>
 			<div class="controls">
-				<form:input path="studentAge" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+				<form:input path="studentPassword" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">性别：</label>
+			<label class="control-label">学生姓名：</label>
 			<div class="controls">
-				<form:input path="studentGenger" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+				<form:input path="studentName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">联系电话：</label>
+			<label class="control-label">邮箱：</label>
 			<div class="controls">
-				<form:input path="studentPhone" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+				<form:input path="studentEmail" htmlEscape="false" maxlength="200" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">联系地址：</label>
+			<label class="control-label">学生电话：</label>
 			<div class="controls">
-				<form:input path="studentAddress" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+				<form:input path="studentPhone" htmlEscape="false" maxlength="200" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">头像：</label>
+			<label class="control-label">学生性别：</label>
 			<div class="controls">
-<%--				<form:input path="studentNum1" htmlEscape="false" maxlength="1000" class="input-xlarge "/>--%>
-				<form:hidden id="studentNum1" path="studentNum1" htmlEscape="false" maxlength="1000" class="input-xlarge"/>
-				<sys:ckfinder input="studentNum1" type="images" uploadPath="/student/sysStudent" selectMultiple="false" maxWidth="100" maxHeight="100"/>
+				<form:radiobuttons path="studentGender" items="${fns:getDictList('sex')}" itemLabel="label" itemValue="value" htmlEscape="false" class=""/>
 			</div>
 		</div>
-<%--		<div class="control-group">--%>
-<%--			<label class="control-label">student_num2：</label>--%>
-<%--			<div class="controls">--%>
-<%--				<form:input path="studentNum2" htmlEscape="false" maxlength="255" class="input-xlarge "/>--%>
-<%--			</div>--%>
-<%--		</div>--%>
-<%--		<div class="control-group">--%>
-<%--			<label class="control-label">student_num3：</label>--%>
-<%--			<div class="controls">--%>
-<%--				<form:input path="studentNum3" htmlEscape="false" maxlength="255" class="input-xlarge "/>--%>
-<%--			</div>--%>
-<%--		</div>--%>
-<%--		<div class="control-group">--%>
-<%--			<label class="control-label">student_num4：</label>--%>
-<%--			<div class="controls">--%>
-<%--				<form:input path="studentNum4" htmlEscape="false" maxlength="255" class="input-xlarge "/>--%>
-<%--			</div>--%>
-<%--		</div>--%>
 		<div class="control-group">
-			<label class="control-label">备注：</label>
+			<label class="control-label">学生头像：</label>
+			<div class="controls">
+				<form:hidden id="studentPhoto" path="studentPhoto" htmlEscape="false" maxlength="1000" class="input-xlarge"/>
+				<sys:ckfinder input="studentPhoto" type="images" uploadPath="/student/sysStudent" selectMultiple="false" maxWidth="100" maxHeight="100"/>
+
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">最后登陆IP：</label>
+			<div class="controls">
+				<form:input path="loginIp" htmlEscape="false" maxlength="100" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">最后登陆时间：</label>
+			<div class="controls">
+				<input name="loginDate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
+					value="<fmt:formatDate value="${sysStudent.loginDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">是否可登录：</label>
+			<div class="controls">
+				<form:input path="loginFlag" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">备注信息：</label>
 			<div class="controls">
 				<form:textarea path="remarks" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
 			</div>
 		</div>
+		<div class="control-group">
+			<label class="control-label">排序：</label>
+			<div class="controls">
+				<form:input path="sort" htmlEscape="false" class="input-xlarge required digits"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+
+
+
 		<div class="form-actions">
 			<shiro:hasPermission name="student:sysStudent:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
 			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>

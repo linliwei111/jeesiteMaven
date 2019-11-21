@@ -3,6 +3,8 @@
  */
 package com.thinkgem.jeesite.modules.oa.entity.leave;
 
+import com.thinkgem.jeesite.common.persistence.ActEntity;
+import com.thinkgem.jeesite.modules.oa.entity.TestAudit;
 import org.hibernate.validator.constraints.Length;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -14,7 +16,7 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
  * @author 林礼炜
  * @version 2019-11-08
  */
-public class SysLeave extends DataEntity<SysLeave> {
+public class SysLeave extends ActEntity<SysLeave> {
 	
 	private static final long serialVersionUID = 1L;
 	private String processInstanceId;		// process_instance_id

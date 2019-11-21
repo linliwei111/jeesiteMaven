@@ -5,20 +5,23 @@
 	<sql id="sysStudentColumns">
 		a.id AS "id",
 		a.student_id AS "studentId",
+		a.studentlogin_name AS "studentloginName",
+		a.student_password AS "studentPassword",
 		a.student_name AS "studentName",
-		a.student_age AS "studentAge",
-		a.student_genger AS "studentGenger",
+		a.student_email AS "studentEmail",
 		a.student_phone AS "studentPhone",
-		a.student_address AS "studentAddress",
-		a.student_num1 AS "studentNum1",
-		a.student_num2 AS "studentNum2",
-		a.student_num3 AS "studentNum3",
-		a.student_num4 AS "studentNum4",
+		a.student_gender AS "studentGender",
+		a.student_photo AS "studentPhoto",
+		a.login_ip AS "loginIp",
+		a.login_date AS "loginDate",
+		a.login_flag AS "loginFlag",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag"
+		a.del_flag AS "delFlag",
+		a.sort AS "sort"
 	</sql>
 	
 	<sql id="sysStudentJoins">
@@ -42,24 +45,35 @@
 			<if test="studentId != null and studentId != ''">
 				AND a.student_id = #{studentId}
 			</if>
+			<if test="studentloginName != null and studentloginName != ''">
+				AND a.studentlogin_name = #{studentloginName}
+			</if>
+			<if test="studentPassword != null and studentPassword != ''">
+				AND a.student_password = #{studentPassword}
+			</if>
 			<if test="studentName != null and studentName != ''">
 				AND a.student_name = #{studentName}
 			</if>
-			<if test="studentAge != null and studentAge != ''">
-				AND a.student_age = #{studentAge}
+			<if test="studentEmail != null and studentEmail != ''">
+				AND a.student_email = #{studentEmail}
 			</if>
-			<if test="studentGenger != null and studentGenger != ''">
-				AND a.student_genger = #{studentGenger}
+			<if test="studentPhone != null and studentPhone != ''">
+				AND a.student_phone = #{studentPhone}
+			</if>
+			<if test="studentGender != null and studentGender != ''">
+				AND a.student_gender = #{studentGender}
 			</if>
 		</where>
+
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
-				order by a.student_id asc
+				ORDER BY a.student_id ASC
 			</otherwise>
 		</choose>
+
 	</select>
 	
 	<select id="findAllList" resultType="SysStudent">
@@ -75,6 +89,7 @@
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
+				ORDER BY a.student_id ASC
 			</otherwise>
 		</choose>
 	</select>
@@ -83,54 +98,63 @@
 		INSERT INTO sys_student(
 			id,
 			student_id,
+			studentlogin_name,
+			student_password,
 			student_name,
-			student_age,
-			student_genger,
+			student_email,
 			student_phone,
-			student_address,
-			student_num1,
-			student_num2,
-			student_num3,
-			student_num4,
+			student_gender,
+			student_photo,
+			login_ip,
+			login_date,
+			login_flag,
 			create_by,
 			create_date,
 			update_by,
+			update_date,
 			remarks,
-			del_flag
+			del_flag,
+			sort
 		) VALUES (
 			#{id},
 			#{studentId},
+			#{studentloginName},
+			#{studentPassword},
 			#{studentName},
-			#{studentAge},
-			#{studentGenger},
+			#{studentEmail},
 			#{studentPhone},
-			#{studentAddress},
-			#{studentNum1},
-			#{studentNum2},
-			#{studentNum3},
-			#{studentNum4},
+			#{studentGender},
+			#{studentPhoto},
+			#{loginIp},
+			#{loginDate},
+			#{loginFlag},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
+			#{updateDate},
 			#{remarks},
-			#{delFlag}
+			#{delFlag},
+			#{sort}
 		)
 	</insert>
 	
 	<update id="update">
 		UPDATE sys_student SET 	
 			student_id = #{studentId},
+			studentlogin_name = #{studentloginName},
+			student_password = #{studentPassword},
 			student_name = #{studentName},
-			student_age = #{studentAge},
-			student_genger = #{studentGenger},
+			student_email = #{studentEmail},
 			student_phone = #{studentPhone},
-			student_address = #{studentAddress},
-			student_num1 = #{studentNum1},
-			student_num2 = #{studentNum2},
-			student_num3 = #{studentNum3},
-			student_num4 = #{studentNum4},
+			student_gender = #{studentGender},
+			student_photo = #{studentPhoto},
+			login_ip = #{loginIp},
+			login_date = #{loginDate},
+			login_flag = #{loginFlag},
 			update_by = #{updateBy.id},
-			remarks = #{remarks}
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			sort = #{sort}
 		WHERE id = #{id}
 	</update>
 	

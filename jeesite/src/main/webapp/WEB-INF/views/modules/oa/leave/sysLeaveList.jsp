@@ -18,33 +18,33 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/oa/leave/sysLeave/">离职申请表列表</a></li>
-		<shiro:hasPermission name="oa:leave:sysLeave:edit"><li><a href="${ctx}/oa/leave/sysLeave/form">离职申请表添加</a></li></shiro:hasPermission>
+		<li class="active"><a href="${ctx}/oa/leave/sysLeave/">离职申请表</a></li>
+		<shiro:hasPermission name="oa:leave:sysLeave:edit"><li><a href="${ctx}/oa/leave/sysLeave/form">添加离职申请表</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="sysLeave" action="${ctx}/oa/leave/sysLeave/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
-			<li><label>process_instance_id：</label>
+			<li><label>id：</label>
 				<form:input path="processInstanceId" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
-			<li><label>start_time：</label>
+			<li><label>开始时间：</label>
 				<input name="startTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
 					value="<fmt:formatDate value="${sysLeave.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</li>
-			<li><label>end_time：</label>
+			<li><label>结束时间：</label>
 				<input name="endTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
 					value="<fmt:formatDate value="${sysLeave.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</li>
-			<li><label>leave_type：</label>
+			<li><label>离职类型：</label>
 				<form:input path="leaveType" htmlEscape="false" maxlength="20" class="input-medium"/>
 			</li>
-			<li><label>reason：</label>
+			<li><label>离职理由：</label>
 				<form:input path="reason" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
-			<li><label>apply_time：</label>
+			<li><label>工作时间：</label>
 				<input name="applyTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
 					value="<fmt:formatDate value="${sysLeave.applyTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
@@ -57,16 +57,16 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>process_instance_id</th>
-				<th>start_time</th>
-				<th>end_time</th>
-				<th>leave_type</th>
-				<th>reason</th>
-				<th>apply_time</th>
-				<th>reality_start_time</th>
-				<th>reality_end_time</th>
-				<th>update_date</th>
-				<th>remarks</th>
+				<th>id</th>
+				<th>开始时间</th>
+				<th>结束时间</th>
+				<th>离职类型</th>
+				<th>离职理由</th>
+				<th>工作时间</th>
+				<th>实际开始时间</th>
+				<th>实际结束时间</th>
+				<th>更新日期</th>
+				<th>备注</th>
 				<shiro:hasPermission name="oa:leave:sysLeave:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>

@@ -34,13 +34,13 @@
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
 		<div class="control-group">
-			<label class="control-label">process_instance_id：</label>
+			<label class="control-label">ID：</label>
 			<div class="controls">
 				<form:input path="processInstanceId" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">start_time：</label>
+			<label class="control-label">开始时间：</label>
 			<div class="controls">
 				<input name="startTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					value="<fmt:formatDate value="${sysLeave.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -48,7 +48,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">end_time：</label>
+			<label class="control-label">结束时间：</label>
 			<div class="controls">
 				<input name="endTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					value="<fmt:formatDate value="${sysLeave.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -56,19 +56,19 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">leave_type：</label>
+			<label class="control-label">离职类型：</label>
 			<div class="controls">
 				<form:textarea path="leaveType" htmlEscape="false" rows="4" maxlength="20" class="input-xxlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">reason：</label>
+			<label class="control-label">离职原因：</label>
 			<div class="controls">
 				<form:textarea path="reason" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">apply_time：</label>
+			<label class="control-label">工作时间：</label>
 			<div class="controls">
 				<input name="applyTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					value="<fmt:formatDate value="${sysLeave.applyTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -76,7 +76,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">reality_start_time：</label>
+			<label class="control-label">实际工作时间：</label>
 			<div class="controls">
 				<input name="realityStartTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					value="<fmt:formatDate value="${sysLeave.realityStartTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -84,7 +84,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">reality_end_time：</label>
+			<label class="control-label">实际结束时间：</label>
 			<div class="controls">
 				<input name="realityEndTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					value="<fmt:formatDate value="${sysLeave.realityEndTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -92,7 +92,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">remarks：</label>
+			<label class="control-label">备注：</label>
 			<div class="controls">
 				<form:textarea path="remarks" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
 			</div>

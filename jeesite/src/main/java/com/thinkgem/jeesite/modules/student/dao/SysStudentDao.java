@@ -8,8 +8,8 @@ import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
 import com.thinkgem.jeesite.modules.student.entity.SysStudent;
 
 /**
- * 这个是学生信息表DAO接口
- * @author 林礼炜
+ * 单表生成DAO接口
+ * @author 阿伟
  * @version 2019-11-07
  */
 @MyBatisDao

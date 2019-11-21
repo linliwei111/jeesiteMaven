@@ -26,4 +26,13 @@
 		<delete file="${designs}/oa/test_audit/test_audit.bpmn20.xml" />
 	</target>
 
+	<!-- 请假流程定义打包-自定义表单 -->
+	<target name="oa.test_dimission">
+		<echo>打包流程定义：离职流程</echo>
+		<copy file="designs/oa/test_dimission/dimission.bpmn" tofile="designs/oa/test_dimission/dimission.bpmn20.xml" />
+		<zip destfile="${deployments}/oa/dimission/dimission.bar" basedir="designs/oa/test_dimission" update="true" includes="*.xml,*.png" />
+		<delete file="designs/oa/test_dimission/dimission.bpmn20.xml" />
+	</target>
+
+
 </project>

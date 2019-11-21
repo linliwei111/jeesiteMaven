@@ -51,19 +51,19 @@ public class TestAuditService extends CrudService<TestAuditDao, TestAudit> {
 		if (StringUtils.isBlank(testAudit.getId())){
 			testAudit.preInsert();
 			dao.insert(testAudit);
-			
+
 			// 启动流程
 			actTaskService.startProcess(ActUtils.PD_TEST_AUDIT[0], ActUtils.PD_TEST_AUDIT[1], testAudit.getId(), testAudit.getContent());
-			
+
 		}
-		
-		// 重新编辑申请		
+
+		// 重新编辑申请
 		else{
 			testAudit.preUpdate();
 			dao.update(testAudit);
 
 			testAudit.getAct().setComment(("yes".equals(testAudit.getAct().getFlag())?"[重申] ":"[销毁] ")+testAudit.getAct().getComment());
-			
+
 			// 完成流程任务
 			Map<String, Object> vars = Maps.newHashMap();
 			vars.put("pass", "yes".equals(testAudit.getAct().getFlag())? "1" : "0");
