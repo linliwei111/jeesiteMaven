@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.oa.dao.OaTestDimissionDao">
+    
+	<sql id="oaTestDimissionColumns">
+		a.id AS "id",
+		a.proc_ins_id AS "procInsId",
+		a.user_id AS "user.id",
+		a.office_id AS "office.id",
+		a.post AS "post",
+		a.age AS "age",
+		a.edu AS "edu",
+		a.content AS "content",
+		a.exe_date AS "exeDate",
+		a.hr_text AS "hrText",
+		a.lead_text AS "leadText",
+		a.main_lead_text AS "mainLeadText",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		u3.name AS "user.name",
+		o4.name AS "office.name"
+	</sql>
+	
+	<sql id="oaTestDimissionJoins">
+		LEFT JOIN sys_user u3 ON u3.id = a.user_id
+		LEFT JOIN sys_office o4 ON o4.id = a.office_id
+	</sql>
+    
+	<select id="get" resultType="OaTestDimission">
+		SELECT 
+			<include refid="oaTestDimissionColumns"/>
+		FROM oa_test_dimission a
+		<include refid="oaTestDimissionJoins"/>
+		WHERE a.id = #{id}
+	</select>
+
+
+	<select id="getByProcInsId" resultType="OaTestDimission">
+		SELECT
+		<include refid="oaTestDimissionColumns"/>
+		FROM oa_test_dimission a
+		<include refid="oaTestDimissionColumns"/>
+		WHERE a.proc_ins_id = #{procInsId}
+	</select>
+
+	
+	<select id="findList" resultType="OaTestDimission">
+		SELECT 
+			<include refid="oaTestDimissionColumns"/>
+		FROM oa_test_dimission a
+		<include refid="oaTestDimissionJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="procInsId != null and procInsId != ''">
+				AND a.proc_ins_id = #{procInsId}
+			</if>
+			<if test="user != null and user.id != null and user.id != ''">
+				AND a.user_id = #{user.id}
+			</if>
+			<if test="office != null and office.id != null and office.id != ''">
+				AND a.office_id = #{office.id}
+			</if>
+			<if test="post != null and post != ''">
+				AND a.post = #{post}
+			</if>
+			<if test="age != null and age != ''">
+				AND a.age = #{age}
+			</if>
+			<if test="edu != null and edu != ''">
+				AND a.edu = #{edu}
+			</if>
+			<if test="content != null and content != ''">
+				AND a.content = #{content}
+			</if>
+			<if test="exeDate != null and exeDate != ''">
+				AND a.exe_date = #{exeDate}
+			</if>
+			<if test="hrText != null and hrText != ''">
+				AND a.hr_text = #{hrText}
+			</if>
+			<if test="leadText != null and leadText != ''">
+				AND a.lead_text = #{leadText}
+			</if>
+			<if test="mainLeadText != null and mainLeadText != ''">
+				AND a.main_lead_text = #{mainLeadText}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="OaTestDimission">
+		SELECT 
+			<include refid="oaTestDimissionColumns"/>
+		FROM oa_test_dimission a
+		<include refid="oaTestDimissionJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO oa_test_dimission(
+			id,
+			proc_ins_id,
+			user_id,
+			office_id,
+			post,
+			age,
+			edu,
+			content,
+			exe_date,
+			hr_text,
+			lead_text,
+			main_lead_text,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{procInsId},
+			#{user.id},
+			#{office.id},
+			#{post},
+			#{age},
+			#{edu},
+			#{content},
+			#{exeDate},
+			#{hrText},
+			#{leadText},
+			#{mainLeadText},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE oa_test_dimission SET 	
+			proc_ins_id = #{procInsId},
+			user_id = #{user.id},
+			office_id = #{office.id},
+			post = #{post},
+			age = #{age},
+			edu = #{edu},
+			content = #{content},
+			exe_date = #{exeDate},
+			hr_text = #{hrText},
+			lead_text = #{leadText},
+			main_lead_text = #{mainLeadText},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE oa_test_dimission SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+
+	<update id="updateInsId">
+		UPDATE oa_test_dimission SET
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+
+	<update id="updateHrText">
+		UPDATE oa_test_dimission SET
+			hr_text = #{hrText},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+
+	<update id="updateLeadText">
+		UPDATE oa_test_dimission SET
+			lead_text = #{leadText},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+
+	<update id="updateMainLeadText">
+		UPDATE oa_test_dimission SET
+			main_lead_text = #{mainLeadText},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+</mapper>
